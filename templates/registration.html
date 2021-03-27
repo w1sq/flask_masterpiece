@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main.html' %}
 
-</body>
-</html>
+{% block content %}
+    {{ super() }}
+    <form action="/registration" method="post" class="reg">
+        <p><label>Логин</label><input type="text" name="login" value="" required/></p>
+        <p><label>Пароль</label></p>
+        <p><label>Пароль еще раз</label></p>
+    </form>
+{% endblock %}
