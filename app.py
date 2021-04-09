@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, flash
 from validate_email import validate_email
-
 from data import db_session
 
 app = Flask(__name__)
@@ -39,9 +38,9 @@ def login():
     return render_template('login.html', login=logged)
 
 
-@app.route('/profile')
-def profile():
-    return render_template('profile.html', login=logged)
+@app.route('/profile/<ident>')
+def profile(ident):
+    return render_template('profile.html', login=logged, id=ident)
 
 
 @app.route('/map')
@@ -70,5 +69,5 @@ def pageNotFound(error):
 
 
 if __name__ == '__main__':
-    db_session.global_init("db/blogs.db")
+    db_session.global_init("blogs.db")
     app.run()
