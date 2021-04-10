@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect
 from validate_email import validate_email
 from data import db_session
+from data.users import User
+from data.crimes import Crimes
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'crimes'
@@ -25,9 +27,22 @@ def reg():
             flash('Неверный email', category='error')
         elif not validate_email(request.form['email-address']):
             flash('Несуществующий email', category='error')
+        elif request.form['password'] != request.form['password2']:
+            flash('Пароли не сходятся', category='error')
         else:
-            flash('welcum', category='success')
+            db_sess = db_session.create_session()
+            user = User(
+                name=request.form['nickname'],
+                email=request.form['email-adress'],
+            )
+            print(user.name)
+            user.set_password(request.form['password'])
+            print(user)
+            db_sess.add(user)
+            db_sess.commit()
             logged = True
+            return redirect('/login')
+
     return render_template('registration.html', login=logged)
 
 
@@ -55,7 +70,10 @@ def add():
 
 @app.route('/crimes')
 def listofcrimes():
-    return render_template('listofcrimes.html', login=logged)
+    db_sess = db_session.create_session()
+    crimes = db_sess.query(User).all()
+    print(crimes)
+    return render_template('listofcrimes.html', login=logged, crimes=crimes)
 
 
 @app.route('/crimes/<number>')
@@ -69,5 +87,5 @@ def pageNotFound(error):
 
 
 if __name__ == '__main__':
-    db_session.global_init("db/blogs.db")
+    db_session.global_init("db/data.db")
     app.run()
