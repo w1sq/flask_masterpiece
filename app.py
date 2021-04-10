@@ -69,5 +69,5 @@ def pageNotFound(error):
 
 
 if __name__ == '__main__':
-    db_session.global_init("blogs.db")
+    db_session.global_init("db/blogs.db")
     app.run()
