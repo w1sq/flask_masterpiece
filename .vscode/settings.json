@@ -2,5 +2,6 @@
     "python.linting.pylintEnabled": false,
     "python.linting.pycodestyleEnabled": true,
     "python.linting.enabled": true,
-    "python.pythonPath": "C:\\python\\python.exe"
+    "python.pythonPath": "C:\\python\\python.exe",
+    "python.formatting.provider": "black"
 }

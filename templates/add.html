@@ -2,60 +2,65 @@
 
 
 <html lang="en">
+
 <head>
     <title>Добавить</title>
 </head>
+
 <body>
-{% block content -%}
-<main class="login-form">
-    <div class="cotainer">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Добавить преступление</div>
-                    <div class="card-body">
-                        <form action="" method="post">
-                            
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Вид Преступления</label>
-                                <select class="form-control" id="exampleFormControlSelect1" size="1">
-                                  <option>Грабеж</option>
-                                  <option>Умышленное причинение тяжкого вреда здоровью</option>
-                                  <option>Вандализм</option>
-                                  <option>Побои</option>
-                                  <option>Похищение человека</option>
-                                  <option>Оскорбление</option>
-                                  <option>Угон личного транспорта</option>
-                                  <opiton>Хранение или применение оружия</opiton>
-                                  <opiton>Хранение или распространение наркотиков</opiton>
-                                  <opiton>Разбой</opiton>
-                                  <option>Убийство</option>
-                                  <opiton>Хилиганство</opiton>
-                                </select>
-                            </div>
+    {% block content -%}
+    <main class="login-form">
+        <div class="cotainer">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Добавить преступление</div>
+                        <div class="card-body">
+                            <form action="" method="post">
 
-                            <div class="form-group row">
-                                <label for="" class="col-md-4 col-form-label text-md-right">О преступлении:</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="crimetitle" class="form-control" name="crimetitle" placeholder="Кратко" required>
-                                    <textarea rows="4" cols="50" name="aboutcrime" id='aboutcrime' class="form-control" placeholder="Поподробнее"></textarea>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Вид Преступления</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" size="1">
+                                        <option>Грабеж</option>
+                                        <option>Умышленное причинение тяжкого вреда здоровью</option>
+                                        <option>Вандализм</option>
+                                        <option>Побои</option>
+                                        <option>Похищение человека</option>
+                                        <option>Оскорбление</option>
+                                        <option>Угон личного транспорта</option>
+                                        <option>Хранение или применение оружия</opiton>
+                                        <option>Хранение или распространение наркотиков</opiton>
+                                        <option>Разбой</opiton>
+                                        <option>Убийство</option>
+                                        <option>Хилиганство</opiton>
+                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Добавить
-                                </button>
-                            </div>
+                                <label for="" class="col-form-label text-md-right">О преступлении:</label>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <input type="text" id="crimetitle" class="form-control" name="crimetitle"
+                                            placeholder="Кратко" required>
+                                        <textarea rows="4" cols="50" name="aboutcrime" id='aboutcrime'
+                                            class="form-control" placeholder="Поподробнее"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Добавить
+                                    </button>
+                                </div>
                             </form>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
-</main>
-{% endblock -%}
+    </main>
+    {% endblock -%}
 </body>
+
 </html>

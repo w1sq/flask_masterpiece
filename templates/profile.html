@@ -2,12 +2,16 @@
 
 
 <html lang="en">
+
 <head>
     <title>Профиль</title>
 </head>
+
 <body>
-{% block content -%}
-<h1>Профиль</h1>
-{% endblock -%}
+    {% block content -%}
+    <h1>Профиль {{name}}</h1>
+    <button style="background-color: red; " type="submit" method="POST">Выйти</button>
+    {% endblock -%}
 </body>
+
 </html>
