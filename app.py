@@ -4,7 +4,6 @@ from data import db_session
 from data.users import User
 from data.crimes import Crimes
 from werkzeug.security import generate_password_hash
-import bcrypt
 import lob
 
 app = Flask(__name__)
@@ -56,7 +55,7 @@ def login():
         email = request.form["email-address"]
         password = request.form["password"]
         dbuser_inf = db_sess.query(User).filter(User.email == email).first()
-        if dbuser_inf.check_password(password):
+        if dbuser_inf and dbuser_inf.check_password(password):
             logged = True
             user_data = dbuser_inf
             return redirect("/")
@@ -72,7 +71,6 @@ def profile():
     name = user_data.name
     if request.method == "POST":
         logged = False
-        print(1)
         return redirect("/")
     return render_template("profile.html", login=logged, name=name)
 
@@ -85,7 +83,15 @@ def criminalmap():
 @app.route("/add", methods=["POST", "GET"])
 def add():
     if request.method == "POST":
-        pass
+        db_sess = db_session.create_session()
+        kind = request.form["kindofcrime"]
+        short = request.form["crimetitle"]
+        adress = request.form["adress"]
+        details = request.form["aboutcrime"]
+        crime = Crimes(kind=kind, title=short, content=details, adress=adress)
+        db_sess.add(crime)
+        db_sess.commit()
+        return redirect("/crimes")
     return render_template("add.html", login=logged)
 
 
@@ -98,7 +104,12 @@ def listofcrimes():
 
 @app.route("/crimes/<number>")
 def crime(number):
-    return render_template("crime.html", number=number, login=logged)
+    db_sess = db_session.create_session()
+    crime = db_sess.query(Crimes).filter(Crimes.id == number).first()
+    if crime:
+        return render_template("crime.html", crime=crime, login=logged)
+    else:
+        return pageNotFound(404)
 
 
 @app.errorhandler(404)

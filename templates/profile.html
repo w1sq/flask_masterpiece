@@ -1,17 +1,9 @@
 {% extends 'base.html' %}
 
-
-<html lang="en">
-
-<head>
-    <title>Профиль</title>
-</head>
-
-<body>
-    {% block content -%}
-    <h1>Профиль {{name}}</h1>
-    <button style="background-color: red; " type="submit" method="POST">Выйти</button>
-    {% endblock -%}
-</body>
-
-</html>
+{% block links%}
+<title>Профиль</title>
+{% endblock %}
+{% block content -%}
+<h1>Профиль {{name}}</h1>
+<button style="background-color: red; " type="submit" method="POST">Выйти</button>
+{% endblock -%}

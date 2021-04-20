@@ -1,33 +1,29 @@
 {% extends 'base.html' %}
 
+{% block links%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type=text/css href='{{ url_for( "static", filename="css/login.css" ) }}'>
+
+<link rel="icon" href="Favicon.png">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" type = text/css href='{{ url_for('static', filename = 'css/login.css') }}'>
-
-    <link rel="icon" href="Favicon.png">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-    <title>Laravel</title>
-</head>
-<body>
+<title>Laravel</title>
+{% endblock %}
 {% block content %}
-    {% for category,message in get_flashed_messages(True) %}
-    <div class="flash {{ category }}">{{ message }}</div>
-    {% endfor %}
-    <main class="login-form">
+{% for category,message in get_flashed_messages(True) %}
+<div class="flash {{ category }}">{{ message }}</div>
+{% endfor %}
+<main class="login-form">
     <div class="cotainer">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -39,14 +35,16 @@
                             <div class="form-group row">
                                 <label for="nickname" class="col-md-4 col-form-label text-md-right">Никнейм</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="nickname" class="form-control" name="nickname1" required autofocus>
+                                    <input type="text" id="nickname" class="form-control" name="nickname1" required
+                                        autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">Почта</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="email_address" class="form-control" name="email-address" required>
+                                    <input type="text" id="email_address" class="form-control" name="email-address"
+                                        required>
                                 </div>
                             </div>
 
@@ -58,9 +56,11 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password2" class="col-md-4 col-form-label text-md-right">Пароль еще раз</label>
+                                <label for="password2" class="col-md-4 col-form-label text-md-right">Пароль еще
+                                    раз</label>
                                 <div class="col-md-6">
-                                    <input type="password" id="password2" class="form-control" name="password2" required>
+                                    <input type="password" id="password2" class="form-control" name="password2"
+                                        required>
                                 </div>
                             </div>
 
@@ -76,14 +76,14 @@
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Зарегестрироваться
+                                    Зарегистрироваться
                                 </button>
                                 <a href="login" class="btn btn-link">
                                     Уже есть аккаунт?
                                 </a>
                             </div>
-                            </form>
-                        </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,11 +92,3 @@
 
 </main>
 {% endblock %}
-
-
-
-
-
-
-</body>
-</html>

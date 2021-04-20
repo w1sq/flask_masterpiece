@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 
-<html lang="en">
-<head>
-    <title>Дело</title>
-</head>
-<body>
+{% block links%}
+<title>Дело</title>
+{% endblock %}
 {% block content -%}
-<h1>Преступление номер {{ number }} </h1>
+<h1>{{crime.title}} </h1>
+<h1>Совершенно {{crime.created_date}}</h1>
+<h2>По адресу {{crime.adress}}</h2>
+<h3>Произошло {{crime.kind}}</h3>
+<h4>{{crime.content}}</h4>
 {% endblock -%}
-</body>
-</html>

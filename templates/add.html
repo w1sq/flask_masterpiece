@@ -19,8 +19,8 @@
                             <form action="" method="post">
 
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Вид Преступления</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" size="1">
+                                    <label for="kindofcrime">Вид Преступления</label>
+                                    <select class="form-control" id="kindofcrime" name="kindofcrime" size="1">
                                         <option>Грабеж</option>
                                         <option>Умышленное причинение тяжкого вреда здоровью</option>
                                         <option>Вандализм</option>
@@ -41,6 +41,8 @@
                                     <div class="col-md-6">
                                         <input type="text" id="crimetitle" class="form-control" name="crimetitle"
                                             placeholder="Кратко" required>
+                                        <input type="text" id="adress" class="form-control" name="adress"
+                                            placeholder="Адрес" required>
                                         <textarea rows="4" cols="50" name="aboutcrime" id='aboutcrime'
                                             class="form-control" placeholder="Поподробнее"></textarea>
                                     </div>

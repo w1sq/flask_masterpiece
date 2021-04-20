@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
+{% block links%}
+<title>Преступления</title>
+{% endblock%}
 
-<html lang="en">
-
-<head>
-    <title>Преступления</title>
-</head>
-
-<body>
-    {% block content %}
-    <h1>Записи в блоге</h1>
-    <button><a href="/add">Добавить новость</a></button>
-    {% for item in crimes %}
+{% block content %}
+<h1>Записи в блоге</h1>
+{%if login%}
+<button><a href="/add">Добавить новость</a></button>
+{%endif%}
+{% for item in crimes %}
+<a href="/crimes/{{item.id}}">
     <div class="col-md6 border rounded">
         <h2>{{item.title}}</h2>
         <div>
@@ -21,8 +20,6 @@
             Автор - {{item.user}}, Дата написания - {{item.created_date}}
         </div>
     </div>
-    {% endfor %}
-    {% endblock %}
-</body>
-
-</html>
+</a>
+{% endfor %}
+{% endblock %}
