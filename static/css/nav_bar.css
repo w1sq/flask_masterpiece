@@ -31,3 +31,15 @@
 .login {
     float: right;
 }
+
+.search{
+    background-color: #212529;
+    border-radius: 7px;
+    width: 250px;
+    height: 35px;
+}
+
+.search-btn{
+    background-color: #333;
+    border-radius: 5px;
+}
