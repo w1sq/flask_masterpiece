@@ -2,7 +2,7 @@
 
 
 {% block links%}
-<title>Добавить</title>
+<title>Изменить</title>
 {% endblock%}
 
 {% block content -%}
@@ -11,13 +11,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Добавить преступление</div>
+                    <div class="card-header">Изменить преступление</div>
                     <div class="card-body">
                         <form action="" method="post">
 
                             <div class="form-group">
                                 <label for="kindofcrime">Вид Преступления</label>
                                 <select class="form-control" id="kindofcrime" name="kindofcrime" size="1">
+                                    <option selected>{{crime.kind}}</option>
                                     <option>Грабеж</option>
                                     <option>Умышленное причинение тяжкого вреда здоровью</option>
                                     <option>Вандализм</option>
@@ -37,17 +38,17 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <input type="text" id="crimetitle" class="form-control" name="crimetitle"
-                                        placeholder="Кратко" required>
+                                        value="{{crime.title}}" placeholder="Кратко" required>
                                     <input type="text" id="adress" class="form-control" name="adress"
-                                        placeholder="Адрес" required>
+                                        value="{{crime.adress}}" placeholder="Адрес" required>
                                     <textarea rows="4" cols="50" name="aboutcrime" id='aboutcrime' class="form-control"
-                                        placeholder="Поподробнее"></textarea>
+                                        placeholder="Поподробнее">{{crime.content}}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Добавить
+                                    Изменить
                                 </button>
                             </div>
                         </form>

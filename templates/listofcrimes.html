@@ -7,7 +7,7 @@
 {% block content %}
 <h1>Записи в блоге</h1>
 {%if login%}
-<button><a href="/add">Добавить новость</a></button>
+<button style="color: darkslategray; border-radius: 5px;"><a href="/add">Добавить новость</a></button>
 {%endif%}
 {% for item in crimes %}
 <a href="/crimes/{{item.id}}">
@@ -17,7 +17,7 @@
             {{item.content}}
         </div>
         <div>
-            Автор - {{item.user}}, Дата написания - {{item.created_date}}
+            Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
         </div>
     </div>
 </a>

@@ -67,12 +67,13 @@ def login():
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
     global logged
+    global user_data
     db_sess = db_session.create_session()
-    name = user_data.name
     if request.method == "POST":
         logged = False
+        user_data = None
         return redirect("/")
-    return render_template("profile.html", login=logged, name=name)
+    return render_template("profile.html", login=logged, data=user_data)
 
 
 @app.route("/map")
@@ -88,7 +89,14 @@ def add():
         short = request.form["crimetitle"]
         adress = request.form["adress"]
         details = request.form["aboutcrime"]
-        crime = Crimes(kind=kind, title=short, content=details, adress=adress)
+        if user_data:
+            crime = Crimes(
+                kind=kind,
+                title=short,
+                content=details,
+                adress=adress,
+                user_id=user_data.id,
+            )
         db_sess.add(crime)
         db_sess.commit()
         return redirect("/crimes")
@@ -107,7 +115,51 @@ def crime(number):
     db_sess = db_session.create_session()
     crime = db_sess.query(Crimes).filter(Crimes.id == number).first()
     if crime:
-        return render_template("crime.html", crime=crime, login=logged)
+        return render_template(
+            "crime.html", crime=crime, login=logged, user_data=user_data
+        )
+    else:
+        return pageNotFound(404)
+
+
+@app.route("/delete_news/<number>")
+def delete(number):
+    db_sess = db_session.create_session()
+    crime = db_sess.query(Crimes).filter(Crimes.id == number).first()
+    if crime:
+        db_sess.delete(crime)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect("/crimes")
+
+
+@app.route("/edit_news/<number>", methods=["POST", "GET"])
+def edit(number):
+    db_sess = db_session.create_session()
+    crime = db_sess.query(Crimes).filter(Crimes.id == number).first()
+    if request.method == "POST":
+        kind = request.form["kindofcrime"]
+        short = request.form["crimetitle"]
+        adress = request.form["adress"]
+        details = request.form["aboutcrime"]
+        if user_data:
+            crime1 = Crimes(
+                kind=kind,
+                title=short,
+                content=details,
+                adress=adress,
+                user_id=user_data.id,
+                created_date=crime.created_date,
+            )
+        db_sess.delete(crime)
+        db_sess.merge(crime1)
+        db_sess.commit()
+        return redirect("/crimes")
+    if crime:
+        return render_template(
+            "edit.html", crime=crime, login=logged, user_data=user_data
+        )
     else:
         return pageNotFound(404)
 

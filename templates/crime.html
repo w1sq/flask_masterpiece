@@ -10,4 +10,10 @@
 <h2>По адресу {{crime.adress}}</h2>
 <h3>{{crime.kind}}</h3>
 <h4>{{crime.content}}</h4>
+{% if login and user_data.id == crime.user.id %}
+<a href="/delete_news/{{crime.id}}"><button type="submit"
+        style="background-color: red; border-radius: 4px;">Удалить</button></a>
+<a href="/edit_news/{{crime.id}}"><button type="submit"
+        style="background-color: yellow; border-radius: 4px;">Изменить</button></a>
+{% endif %}
 {% endblock -%}
