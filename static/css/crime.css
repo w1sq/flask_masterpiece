@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.main-crime {
+    position: absolute;
+    width: 890px;
+    height: 635px;
+    left: 235px;
+    top: 235px;
+}
+
+.main-information-about-crime{
+    position: absolute;
+    width: 501px;
+    height: 124px;
+    left: 235px;
+    top: 235px;
+}
+
+.name_of_crime {
+    position: absolute;
+    width: 152px;
+    height: 30px;
+    left: 235px;
+    top: 235px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.date-of-crime {
+    position: absolute;
+    width: 100px;
+    height: 24px;
+    left: 236px;
+    top: 288px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.where-of-crime {
+    position: absolute;
+    width: 501px;
+    height: 24px;
+    left: 235px;
+    top: 335px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.what-of-crime {
+    position: absolute;
+    width: 127px;
+    height: 24px;
+    left: 235px;
+    top: 386px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.cratkoe-opisanie {
+    position: absolute;
+    width: 198px;
+    height: 24px;
+    left: 235px;
+    top: 456px;
+
+    font-family: Montserrat;
+        font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.description {
+    position: absolute;
+    width: 861px;
+    height: 185px;
+    left: 249px;
+    bottom: 313px;
+
+/* margin */
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25px;
+/* or 147% */
+
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 3px;
+
+    letter-spacing: 0.05em;
+
+    color: #000000;
+}

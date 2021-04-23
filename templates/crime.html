@@ -3,11 +3,19 @@
 
 {% block links%}
 <title>Дело</title>
+<link rel="styleshhet" href="../static/css/crime.css">
 {% endblock %}
 {% block content -%}
-<h1>{{crime.title}} </h1>
-<h1>Совершенно {{crime.created_date}}</h1>
-<h2>По адресу {{crime.adress}}</h2>
-<h3>Произошло {{crime.kind}}</h3>
-<h4>{{crime.content}}</h4>
+<main class="main-crime">
+    <div class="main-information-about-crime">
+        <h1 class="name_of_crime">{{crime.title}} </h1>
+        <h2 class="date-of-crime">Совершенно {{crime.created_date}}</h1>
+        <h2 class="where-of-crime">По адресу {{crime.adress}}</h2>
+    </div>
+    <div class="main-discription-of-crime"></div>
+        <h2 class="what-of-crime">Произошло {{crime.kind}}</h3>
+        <h3 class="cratkoe-opisanie">Краткое описание</h2>
+        <p class="descrition">{{crime.content}}</p>
+    </div>
+</main>
 {% endblock -%}

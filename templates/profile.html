@@ -2,8 +2,27 @@
 
 {% block links%}
 <title>Профиль</title>
+<link rel="stylesheet" href="../static/css/profile.css">
 {% endblock %}
 {% block content -%}
-<h1>Профиль {{name}}</h1>
+<h1 class=profile>Профиль {{name}}</h1>
+<h2 class="main-information">Основная информация</h2>
+
+<div class="profile-div-mail">
+<h4 class="profile-information profile-mail">Почта</h4>
+<textarea class=mail></textarea>
+</div>
+
+<div class="profile-div-password">
+<h4 class="profile-information profile-password">Пароль</h4>
+<textarea class='password'></textarea>
+</div>
+
+<div class="profile-statistics">
+<h2>Статистика</h2>
+    <p><label class="added">Добавлено дел {{number}}</label></p>
+    <p><label class="watched">Просмотрено {{number}}</label></p>
+    <p><label>Добавлено дел {{number}}</label></p>
+</div>
 <button style="background-color: red; " type="submit" method="POST">Выйти</button>
 {% endblock -%}

@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+body {
+    background-color: #f0f0f0;
+    width: 1440px;
+    height: 1024px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.logo {
+    position: absolute;
+    width: 125px;
+    height: 47px;
+    left: 135px;
+    top: 46px;
+}
+
+
+.logo-image {
+    position: absolute;
+    width: 50.19px;
+    height: 47px;
+    left: 135px;
+    top: 46px;
+}
+
+
+.logo-text {
+    position: absolute;
+    width: 69.33px;
+    height: 16.02px;
+    left: 190.67px;
+    top: 74.4px;
+
+    font-family: Montserrat;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.navigation > li {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.navigation > li > a {
+    text-decoration: none;
+    color: #000000
+}
+.nav-map {
+    position: absolute;
+    width: 45px;
+    height: 18px;
+    left: 335px;
+    top: 75px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.nav-last {
+    position: absolute;
+    width: 89px;
+    height: 18px;
+    left: 433px;
+    top: 75px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+
+    color: #000000;
+}
+
+.nav-your-crimes {
+    position: absolute;
+    width: 86px;
+    height: 18px;
+    left: 574px;
+    top: 75px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.nav-obratnaya-svyaz {
+    position: absolute;
+    width: 124px;
+    height: 18px;
+    left: 712px;
+    top: 75px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
