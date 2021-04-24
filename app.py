@@ -10,16 +10,17 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "crimes"
 logged = False
 user_data = None
+admins = ["artem.kokorev2005@yandex.ru"]
 
 
 @app.route("/")
 def main():
-    return render_template("main.html", login=logged)
+    return render_template("main.html", login=logged, user_data=user_data)
 
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html", login=logged)
+    return render_template("contact.html", login=logged, user_data=user_data)
 
 
 @app.route("/registration", methods=["POST", "GET"])
@@ -43,7 +44,7 @@ def reg():
             db_sess.commit()
             return redirect("/login")
 
-    return render_template("registration.html", login=logged)
+    return render_template("registration.html", login=logged, user_data=user_data)
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -61,24 +62,61 @@ def login():
             return redirect("/")
         else:
             flash("Неправильно введена почта или пароль", category="error")
-    return render_template("login.html", login=logged)
+    return render_template("login.html", login=logged, user_data=user_data)
 
 
-@app.route("/profile", methods=["POST", "GET"])
-def profile():
+@app.route("/profile/<id>", methods=["POST", "GET"])
+def profile(id):
     global logged
     global user_data
     db_sess = db_session.create_session()
+    lich_crimes = db_sess.query(Crimes).filter(Crimes.user_id == id).all()
     if request.method == "POST":
         logged = False
         user_data = None
         return redirect("/")
-    return render_template("profile.html", login=logged, data=user_data)
+    if user_data.id != id:
+        user_data1 = db_sess.query(User).filter(User.id == id).first()
+        return render_template(
+            "profile.html",
+            login=logged,
+            user_data=user_data1,
+            crimes=lich_crimes,
+            admin=False,
+        )
+    elif str(user_data.email) in admins:
+        return render_template(
+            "profile.html",
+            login=logged,
+            user_data=user_data,
+            crimes=lich_crimes,
+            admin=True,
+        )
+    else:
+        return render_template(
+            "profile.html",
+            login=logged,
+            user_data=user_data,
+            crimes=lich_crimes,
+            admin=False,
+        )
+
+
+@app.route("/admin")
+def admin():
+    if str(user_data.email) in admins:
+        db_sess = db_session.create_session()
+        questions = db_sess.query(Questions).all()
+        return render_template(
+            "admin.html", login=logged, user_data=user_data, questions=questions
+        )
+    else:
+        abort(404)
 
 
 @app.route("/map")
 def criminalmap():
-    return render_template("map.html", login=logged)
+    return render_template("map.html", login=logged, user_data=user_data)
 
 
 @app.route("/add", methods=["POST", "GET"])
@@ -100,14 +138,16 @@ def add():
         db_sess.add(crime)
         db_sess.commit()
         return redirect("/crimes")
-    return render_template("add.html", login=logged)
+    return render_template("add.html", login=logged, user_data=user_data)
 
 
 @app.route("/crimes")
 def listofcrimes():
     db_sess = db_session.create_session()
     crimes = db_sess.query(Crimes).all()
-    return render_template("listofcrimes.html", login=logged, crimes=crimes)
+    return render_template(
+        "listofcrimes.html", login=logged, crimes=crimes, user_data=user_data
+    )
 
 
 @app.route("/crimes/<number>")
@@ -166,7 +206,7 @@ def edit(number):
 
 @app.errorhandler(404)
 def pageNotFound(error):
-    return render_template("error404.html", login=logged)
+    return render_template("error404.html", login=logged, user_data=user_data)
 
 
 if __name__ == "__main__":

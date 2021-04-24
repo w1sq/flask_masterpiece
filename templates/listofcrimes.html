@@ -17,7 +17,7 @@
             {{item.content}}
         </div>
         <div>
-            Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+            Автор - {{item.user.name}}, Дата написания - {{item.created_date.isoformat("|","minutes")}}
         </div>
     </div>
 </a>

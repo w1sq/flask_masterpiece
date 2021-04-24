@@ -29,11 +29,11 @@
     <ul class="navigation">
         <a href="/">Главная</a>
         <a href="/crimes">Последнее</a>
-        <a href="map">Карта</a>
-        <a href="contact"> Наши контакты </a>
+        <a href="/map">Карта</a>
+        <a href="/contact"> Наши контакты </a>
         {% if login %}
-        <a href="profile" class="login"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
-                viewBox="0 0 172 172" style=" fill:#000000;">
+        <a href="/profile/{{user_data.id}}" class="login"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="24" height="24" viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                     font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -47,7 +47,7 @@
                 </g>
             </svg></a>
         {% else %}
-        <a href="login" class="login"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+        <a href="/login" class="login"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
                 viewBox="0 0 172 172" style=" fill:#000000;">
                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
@@ -63,7 +63,8 @@
             </svg></a>
         {% endif %}
         <form> <input type="text" id="search" name="search" placeholder="Search" class="search"><button
-                class="search-btn"><img src="https://img.icons8.com/android/24/000000/search.png" /></button></form>
+                class="search-btn" type="submit"><img
+                    src="https://img.icons8.com/android/24/000000/search.png" /></button></form>
     </ul>
 
     {% endblock mainmenu %}

@@ -4,6 +4,28 @@
 <title>Профиль</title>
 {% endblock %}
 {% block content -%}
-<h1>Профиль {{data.name}}</h1>
-<form><button style="background-color: red; " type="submit" method="POST">Выйти</button></form>
-{% endblock -%}
+<h1>Профиль {{user_data.name}}</h1>
+
+<form>
+    <button style="background-color: red; " type="submit" method="POST">Выйти</button>
+    {% if admin %}
+    <button style="background-color:yellowgreen; " type="submit"><a href="/admin">Администрирование</a>></button>
+    <h2>{{user_data.email}}</h2>
+    {% endif %}
+</form>
+<div>
+    <h3>Добавленные:</h3>
+    {% for item in crimes %}
+    <a href="/crimes/{{item.id}}">
+        <div class="col-md6 border rounded">
+            <h2>{{item.title}}</h2>
+            <div>
+                {{item.content}}
+            </div>
+            <div>
+                Дата написания - {{item.created_date.isoformat("|","minutes")}}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>{% endblock -%}
