@@ -144,35 +144,83 @@ def admin():
 
 @app.route("/map")
 def criminalmap():
-    return render_template("map.html", login=logged, user_data=user_data)
+    db_sess = db_session.create_session()
+    crimes = db_sess.query(Crimes).all()
+    with open("static/crimes.txt") as txtcrimes:
+        lines = txtcrimes.readlines()
+        placemarks = []
+        for line in lines:
+            crime_inf = line.split()
+            crime_info = {
+                "latitude": float(crime_inf[1]),
+                "longitude": float(crime_inf[2]),
+                "hintContent": f"Дело №{crime_inf[0]}",
+                "balloonContent": [
+                    f'<a href="/crimes/{crime_inf[0]}">',
+                    "Перейти в дело",
+                    "</a>",
+                ],
+            }
+            placemarks.append(crime_info)
+        print(placemarks)
+    return render_template(
+        "map.html",
+        login=logged,
+        user_data=user_data,
+        crimes=crimes,
+        placemarks=placemarks,
+    )
 
 
 @app.route("/add", methods=["POST", "GET"])
 def add():
     if request.method == "POST":
         db_sess = db_session.create_session()
-        kind = request.form["kindofcrime"]
-        short = request.form["crimetitle"]
-        adress = request.form["adress"]
-        details = request.form["aboutcrime"]
         if user_data:
             crime = Crimes(
-                kind=kind,
-                title=short,
-                content=details,
-                adress=adress,
+                kind=request.form["kindofcrime"],
+                title=request.form["crimetitle"],
+                content=request.form["aboutcrime"],
+                adress=request.form["adress"],
                 user_id=user_data.id,
             )
+        f = open("static/crimes.txt", "a")
+        ident = len(db_sess.query(Crimes).all())
+        f.write(
+            f"{ident+1} {geolocator.geocode(str(request.form['adress'])).latitude} {geolocator.geocode(str(request.form['adress'])).longitude}"
+        )
+        f.close()
         db_sess.add(crime)
         db_sess.commit()
         return redirect("/crimes")
     return render_template("add.html", login=logged, user_data=user_data)
 
 
-@app.route("/crimes")
+@app.route("/crimes", methods=["POST", "GET"])
 def listofcrimes():
     db_sess = db_session.create_session()
-    crimes = db_sess.query(Crimes).all()
+    if request.method == "POST" and request.form["filter_written"]:
+        option = request.form["filter"].lower()
+        user_input = str(request.form["filter_written"]).lower()
+        print(option, user_input)
+        if option == "вид":
+            typ = user_input[0].upper() + user_input[1:]
+            crimes = db_sess.query(Crimes).filter(Crimes.kind.like(f"%{typ}%")).all()
+        elif option == "автор":
+            author_id = db_sess.query(User).filter(User.name == user_input).first().id
+            crimes = (
+                db_sess.query(Crimes)
+                .filter(Crimes.user_id.like(f"%{author_id}%"))
+                .all()
+            )
+        elif option == "дата":
+            crimes = (
+                db_sess.query(Crimes)
+                .filter(Crimes.created_date.like(f"%{user_input}%"))
+                .all()
+            )
+    else:
+        crimes = db_sess.query(Crimes).all()
     return render_template(
         "listofcrimes.html", login=logged, crimes=crimes, user_data=user_data
     )

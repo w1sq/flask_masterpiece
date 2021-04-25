@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>Вопросы</h1>
+<h1>Вопросы:</h1>
 {% for item in questions %}
 <a href="/question/{{item.id}}" style="color:black">
     {% if item.pending %}

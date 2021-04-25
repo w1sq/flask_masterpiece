@@ -13,6 +13,18 @@
 {%if login%}
 <button style="color: darkslategray; border-radius: 5px;"><a href="/add">Добавить новость</a></button>
 {%endif%}
+<form method="POST" role="form">
+    <select id='filter' name='filter'>
+        <option>Вид</option>
+        <option>Дата</option>
+        <option>Автор</option>
+    </select>
+    <input id='filter_written' name='filter_written'>
+    <button type="submit">Применить</button>
+</form>
+{% if not crimes %}
+<h3>Ничего не найдено</h3>
+{% else %}
 <ul>
     {% for item in crimes %} <li>
         <a href="/crimes/{{item.id}}" style="color: black;">
@@ -42,4 +54,5 @@
     </li>
     {% endfor %}
 </ul>
+{% endif %}
 {% endblock %}
