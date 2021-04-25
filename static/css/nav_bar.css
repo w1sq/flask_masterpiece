@@ -29,7 +29,7 @@
 }
 
 .login {
-    float: right;
+    left: 0px;
 }
 
 .search{
@@ -37,6 +37,7 @@
     border-radius: 7px;
     width: 250px;
     height: 35px;
+    top: 10px;
 }
 
 .search-btn{

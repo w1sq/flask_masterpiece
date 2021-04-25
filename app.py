@@ -3,11 +3,14 @@ from validate_email import validate_email
 from data import db_session
 from data.users import User
 from data.crimes import Crimes
+from data.question import Questions
 from werkzeug.security import generate_password_hash
 import lob
+from geopy.geocoders import Nominatim
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "crimes"
+geolocator = Nominatim(user_agent="crimes_around")
 logged = False
 user_data = None
 admins = ["artem.kokorev2005@yandex.ru"]
@@ -18,14 +21,39 @@ def main():
     return render_template("main.html", login=logged, user_data=user_data)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["POST", "GET"])
 def contact():
+    if request.method == "POST":
+        if logged:
+            db_sess = db_session.create_session()
+            question = Questions(
+                name=request.form["name"],
+                theme=request.form["subject"],
+                message=request.form["message"],
+                user_id=user_data.id,
+            )
+            db_sess.add(question)
+            db_sess.commit()
+        else:
+            flash("Для начала надо войти в аккаунт", category="error")
     return render_template("contact.html", login=logged, user_data=user_data)
+
+
+@app.route("/question/<id>", methods=["POST", "GET"])
+def question(id):
+    db_sess = db_session.create_session()
+    question = db_sess.query(Questions).filter(Questions.id == id).first()
+    if request.method == "POST":
+        question.pending = False
+        db_sess.commit()
+        return redirect("/admin")
+    return render_template(
+        "question.html", logged=logged, user_data=user_data, question=question
+    )
 
 
 @app.route("/registration", methods=["POST", "GET"])
 def reg():
-    global logged
     if request.method == "POST":
         if len(request.form["email-address"]) < 7:
             flash("Неверный email", category="error")
@@ -75,7 +103,7 @@ def profile(id):
         logged = False
         user_data = None
         return redirect("/")
-    if user_data.id != id:
+    if not user_data or str(user_data.id) != str(id):
         user_data1 = db_sess.query(User).filter(User.id == id).first()
         return render_template(
             "profile.html",
@@ -155,8 +183,13 @@ def crime(number):
     db_sess = db_session.create_session()
     crime = db_sess.query(Crimes).filter(Crimes.id == number).first()
     if crime:
+        location = geolocator.geocode(str(crime.adress))
         return render_template(
-            "crime.html", crime=crime, login=logged, user_data=user_data
+            "crime.html",
+            crime=crime,
+            login=logged,
+            user_data=user_data,
+            location=location,
         )
     else:
         return pageNotFound(404)
@@ -179,16 +212,12 @@ def edit(number):
     db_sess = db_session.create_session()
     crime = db_sess.query(Crimes).filter(Crimes.id == number).first()
     if request.method == "POST":
-        kind = request.form["kindofcrime"]
-        short = request.form["crimetitle"]
-        adress = request.form["adress"]
-        details = request.form["aboutcrime"]
         if user_data:
             crime1 = Crimes(
-                kind=kind,
-                title=short,
-                content=details,
-                adress=adress,
+                kind=request.form["kindofcrime"],
+                title=request.form["crimetitle"],
+                content=request.form["aboutcrime"],
+                adress=request.form["adress"],
                 user_id=user_data.id,
                 created_date=crime.created_date,
             )

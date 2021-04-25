@@ -2,24 +2,44 @@
 
 {% block links%}
 <title>Преступления</title>
+<script>var colors = ['#ff0000', '#00ff00', '#0000ff'];
+    var random_color = colors[Math.floor(Math.random() * colors.length)];
+    document.getElementById('crime').style.color = random_color;</script>
 {% endblock%}
 
 {% block content %}
-<h1>Записи в блоге</h1>
+<h1>Недавние Преступления</h1>
+<hr>
 {%if login%}
 <button style="color: darkslategray; border-radius: 5px;"><a href="/add">Добавить новость</a></button>
 {%endif%}
-{% for item in crimes %}
-<a href="/crimes/{{item.id}}">
-    <div class="col-md6 border rounded">
-        <h2>{{item.title}}</h2>
-        <div>
-            {{item.content}}
-        </div>
-        <div>
-            Автор - {{item.user.name}}, Дата написания - {{item.created_date.isoformat("|","minutes")}}
-        </div>
-    </div>
-</a>
-{% endfor %}
+<ul>
+    {% for item in crimes %} <li>
+        <a href="/crimes/{{item.id}}" style="color: black;">
+            {% if item.user_id == user_data.id %}
+            <div class="col-md6 border rounded" name='crime' id='crime' style="background-color: lightgreen ;">
+                <div class="col-md6 border rounded" name='crime' id='crime' style="background-color: black ;"></div>
+                <h2>{{item.title}}</h2>
+                <div>
+                    {{item.content}}
+                </div>
+                <div>
+                    Автор - {{item.user.name}}, Дата написания - {{item.created_date.isoformat("|","minutes")}}
+                </div>
+                {% else %}
+                <div class="col-md6 border rounded" name='crime' id='crime' style="background-color: lightsteelblue ;">
+                    <h2>{{item.title}}</h2>
+                    <div>
+                        {{item.content}}
+                    </div>
+                    <div>
+                        Автор - {{item.user.name}}, Дата написания - {{item.created_date.isoformat("|","minutes")}}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

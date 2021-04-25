@@ -2,36 +2,13 @@ ymaps.ready(init);
 
 var placemarks = [
     {
-        latitude: 59.97,
-        longitude: 30.31,
-        hintContent: '<div class="map__hint">ул. Литераторов, д. 19</div>',
+        latitude: 55.75,
+        longitude: 37.61,
+        hintContent: 'Емае',
         balloonContent: [
-            '<div class="map__balloon">',
-            '<img class="map__burger-img" src="img/marker.png" alt="Бургер"/>',
-            'Самые вкусные бургеры у нас! Заходите по адресу: ул. Литераторов, д. 19',
-            '</div>'
-        ]
-    },
-    {
-        latitude: 59.94,
-        longitude: 30.25,
-        hintContent: '<div class="map__hint">Малый проспект В О, д 64</div>',
-        balloonContent: [
-            '<div class="map__balloon">',
-            '<img class="map__burger-img" src="img/marker.png" alt="Бургер"/>',
-            'Самые вкусные бургеры у нас! Заходите по адресу: Малый проспект В О, д 64',
-            '</div>'
-        ]
-    },
-    {
-        latitude: 59.93,
-        longitude: 30.34,
-        hintContent: '<div class="map__hint">наб. реки Фонтанки, д. 56</div>',
-        balloonContent: [
-            '<div class="map__balloon">',
-            '<img class="map__burger-img" src="img/marker.png" alt="Бургер"/>',
-            'Самые вкусные бургеры у нас! Заходите по адресу: наб. реки Фонтанки, д. 56',
-            '</div>'
+            '<a href="/crimes/1">',
+            'Перейти в дело',
+            '</a>'
         ]
     }
 ],
@@ -42,7 +19,6 @@ function init() {
         center: [55.7520, 37.6175],
         zoom: 10,
         controls: ['zoomControl'],
-        behaviors: ['drag']
     });
 
     for (var i = 0; i < placemarks.length; i++) {
@@ -50,16 +26,9 @@ function init() {
             {
                 hintContent: placemarks[i].hintContent,
                 balloonContent: placemarks[i].balloonContent.join('')
-            },
-            {
-                iconLayout: 'default#image',
-                iconImageHref: 'img/marker.png',
-                iconImageSize: [46, 57],
-                iconImageOffset: [-23, -57],
-                iconImageClipRect: [[415, 0], [461, 57]]
-            });
+            }
+        )
     }
-
     var clusterer = new ymaps.Clusterer({
         clusterIcons: [
             {
@@ -70,7 +39,6 @@ function init() {
         ],
         clusterIconContentLayout: null
     });
-
     map.geoObjects.add(clusterer);
     clusterer.add(geoObjects);
 }

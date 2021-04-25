@@ -6,26 +6,31 @@
 {% block content -%}
 <h1>Профиль {{user_data.name}}</h1>
 
-<form>
-    <button style="background-color: red; " type="submit" method="POST">Выйти</button>
+<form method="POST" role="form">
+    {% if logged %}
+    <button style="background-color: red; border-radius: 4px; " type="submit">Выйти</button>
+    {% endif %}
     {% if admin %}
-    <button style="background-color:yellowgreen; " type="submit"><a href="/admin">Администрирование</a>></button>
+    <button style="background-color:yellowgreen; border-radius: 4px; " type="submit"><a
+            href="/admin">Администрирование</a> </button>
     <h2>{{user_data.email}}</h2>
     {% endif %}
 </form>
 <div>
     <h3>Добавленные:</h3>
-    {% for item in crimes %}
-    <a href="/crimes/{{item.id}}">
-        <div class="col-md6 border rounded">
-            <h2>{{item.title}}</h2>
-            <div>
-                {{item.content}}
-            </div>
-            <div>
-                Дата написания - {{item.created_date.isoformat("|","minutes")}}
-            </div>
-        </div>
-    </a>
-    {% endfor %}
+    <ul>
+        {% for item in crimes %}
+        <li><a href="/crimes/{{item.id}}">
+                <div class="col-md6 border rounded" style="background-color: lightgoldenrodyellow;">
+                    <h2>{{item.title}}</h2>
+                    <div>
+                        {{item.content}}
+                    </div>
+                    <div>
+                        Дата написания - {{item.created_date.isoformat("|","minutes")}}
+                    </div>
+                </div>
+            </a></li>
+        {% endfor %}
+    </ul>
 </div>{% endblock -%}

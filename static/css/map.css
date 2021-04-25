@@ -1,8 +1,17 @@
 .map {
-	height: 90vh;
-	width: 135%;
+	float: left;
+    position: absolute;
+    top: 55px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
 }
 
+html,
+body {
+    margin: 0px;
+    height: 100%;
+}
 .map__hint {
     padding: 20px;
     min-height: 55px;

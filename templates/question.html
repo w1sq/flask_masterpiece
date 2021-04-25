@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+<h1>Вопрос № {{question.id}}</h1>
+<h2>Создан {{question.user.name}}</h2>
+<h2>Имя {{question.name}}</h2>
+<h1>{{question.theme}}</h1>
+<h3>{{question.message}}</h3>
+<h2>Отвечать на {{question.user.email}}<h2>
+        {% if question.pending%}
+        <form method="POST" role="form"><button type="submit">Отметить как отвеченный</button></form>
+        {% endif %}
+        {% endblock %}

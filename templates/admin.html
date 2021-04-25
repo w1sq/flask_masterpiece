@@ -1,18 +1,25 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block links %}
 {% endblock %}
 
 {% block content %}
+<h1>Вопросы</h1>
 {% for item in questions %}
-<div class="col-md6 border rounded">
-    <h2>{{item.theme}}</h2>
-    <div>
-        {{item.message}}
-    </div>
-    <div>
-        Автор - {{item.user.name}}, Дата написания - {{item.created_date.isoformat("|","minutes")}}
-    </div>
-</div>
+<a href="/question/{{item.id}}" style="color:black">
+    {% if item.pending %}
+    <div class="col-md6 border rounded" style='background-color: orange;'>
+        {% else %}
+        <div class="col-md6 border rounded" style="background-color: green;">
+            {% endif%}
+            <h2>{{item.theme}}</h2>
+            <div>
+                {{item.message}}
+            </div>
+            <div>
+                Автор - {{item.user.name}}, Дата написания - {{item.created_date.isoformat("|","minutes")}}
+            </div>
+        </div>
+</a>
 {% endfor %}
 {% endblock %}
