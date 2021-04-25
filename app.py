@@ -214,11 +214,12 @@ def listofcrimes():
                 .all()
             )
         elif option == "дата":
-            crimes = (
-                db_sess.query(Crimes)
-                .filter(Crimes.created_date.like(f"%{user_input}%"))
-                .all()
-            )
+            crimes = db_sess.query(Crimes).all()
+            ok = []
+            for item in crimes:
+                if user_input in str(item.created_date):
+                    ok.append(item.id)
+            crimes = db_sess.query(Crimes).filter(Crimes.id.in_(ok)).all()
     else:
         crimes = db_sess.query(Crimes).all()
     return render_template(
