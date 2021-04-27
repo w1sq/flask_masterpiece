@@ -6,6 +6,9 @@
 {% endblock%}
 
 {% block content -%}
+{% for category,message in get_flashed_messages(True) %}
+<div class="flash {{ category }}">{{ message }}</div>
+{% endfor %}
 <main class="login-form">
     <div class="cotainer">
         <div class="row justify-content-center">
@@ -18,6 +21,9 @@
                             <div class="form-group">
                                 <label for="kindofcrime">Вид Преступления</label>
                                 <select class="form-control" id="kindofcrime" name="kindofcrime" size="1">
+                                    {% if kind %}
+                                    <option selected>{{kind}}</option>
+                                    {% endif %}
                                     <option>Грабеж</option>
                                     <option>Умышленное причинение тяжкого вреда здоровью</option>
                                     <option>Вандализм</option>
@@ -37,11 +43,11 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <input type="text" id="crimetitle" class="form-control" name="crimetitle"
-                                        placeholder="Кратко" required>
+                                        placeholder="Кратко" required value='{{title}}'>
                                     <input type="text" id="adress" class="form-control" name="adress"
-                                        placeholder="Адрес(полный)" required>
+                                        placeholder="Адрес(полный)" required values='{{adress}}'>
                                     <textarea rows="4" cols="50" name="aboutcrime" id='aboutcrime' class="form-control"
-                                        placeholder="Поподробнее"></textarea>
+                                        placeholder="Поподробнее">{{content}}</textarea>
                                 </div>
                             </div>
 

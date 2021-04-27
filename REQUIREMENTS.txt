@@ -1,0 +1,6 @@
+json
+flask 
+validate_email
+werkzeug
+geopy
+requests

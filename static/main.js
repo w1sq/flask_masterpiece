@@ -4,11 +4,41 @@ geoObjects = [];
 
 var placemarks = [
     {
-        'latitude': 55.8446027,
-        'longitude': 37.55799304410796,
+        'latitude': 55.75,
+        'longitude': 37.61,
         'hintContent': 'Дело №1',
         'balloonContent': [
             '<a href="/crimes/1">',
+            'Перейти в дело',
+            '</a>'
+        ]
+    },
+    {
+        'latitude': 55.7632,
+        'longitude': 37.5766,
+        'hintContent': 'Дело №2',
+        'balloonContent': [
+            '<a href="/crimes/2">',
+            'Перейти в дело',
+            '</a>'
+        ]
+    },
+    {
+        'latitude': 55.8446027,
+        'longitude': 37.557993044107964,
+        'hintContent': 'Дело №11',
+        'balloonContent': [
+            '<a href="/crimes/11">',
+            'Перейти в дело',
+            '</a>'
+        ]
+    },
+    {
+        'latitude': 55.6675926,
+        'longitude': 37.415446,
+        'hintContent': 'Дело №4',
+        'balloonContent': [
+            '<a href="/crimes/4">',
             'Перейти в дело',
             '</a>'
         ]

@@ -5,8 +5,10 @@ from data.users import User
 from data.crimes import Crimes
 from data.question import Questions
 from werkzeug.security import generate_password_hash
-import lob
 from geopy.geocoders import Nominatim
+import json
+import requests
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "crimes"
@@ -146,6 +148,8 @@ def admin():
 def criminalmap():
     db_sess = db_session.create_session()
     crimes = db_sess.query(Crimes).all()
+    for i in range(len(crimes)):
+        pass
     with open("static/crimes.txt") as txtcrimes:
         lines = txtcrimes.readlines()
         placemarks = []
@@ -162,13 +166,13 @@ def criminalmap():
                 ],
             }
             placemarks.append(crime_info)
-        print(placemarks)
+    placemarks_json = json.dumps(placemarks, ensure_ascii=False)
     return render_template(
         "map.html",
         login=logged,
         user_data=user_data,
         crimes=crimes,
-        placemarks=placemarks,
+        placemarks=placemarks_json,
     )
 
 
@@ -177,19 +181,31 @@ def add():
     if request.method == "POST":
         db_sess = db_session.create_session()
         if user_data:
+            kind = request.form["kindofcrime"]
+            title = request.form["crimetitle"]
+            content = request.form["aboutcrime"]
+            adress = request.form["adress"]
             crime = Crimes(
-                kind=request.form["kindofcrime"],
-                title=request.form["crimetitle"],
-                content=request.form["aboutcrime"],
-                adress=request.form["adress"],
+                kind=kind,
+                title=title,
+                content=content,
+                adress=adress,
                 user_id=user_data.id,
             )
-        f = open("static/crimes.txt", "a")
-        ident = len(db_sess.query(Crimes).all())
-        f.write(
-            f"{ident+1} {geolocator.geocode(str(request.form['adress'])).latitude} {geolocator.geocode(str(request.form['adress'])).longitude}"
-        )
-        f.close()
+        try:
+            adr = geolocator.geocode(adress).latitude
+        except Exception:
+            flash("Несуществующий адрес", category="error")
+            return render_template(
+                "add.html",
+                login=logged,
+                user_data=user_data,
+                kind=kind,
+                title=title,
+                content=content,
+                adress=adress,
+            )
+        print(1)
         db_sess.add(crime)
         db_sess.commit()
         return redirect("/crimes")
