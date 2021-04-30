@@ -148,24 +148,15 @@ def admin():
 def criminalmap():
     db_sess = db_session.create_session()
     crimes = db_sess.query(Crimes).all()
-    for i in range(len(crimes)):
-        pass
-    with open("static/crimes.txt") as txtcrimes:
-        lines = txtcrimes.readlines()
-        placemarks = []
-        for line in lines:
-            crime_inf = line.split()
-            crime_info = {
-                "latitude": float(crime_inf[1]),
-                "longitude": float(crime_inf[2]),
-                "hintContent": f"Дело №{crime_inf[0]}",
-                "balloonContent": [
-                    f'<a href="/crimes/{crime_inf[0]}">',
-                    "Перейти в дело",
-                    "</a>",
-                ],
-            }
-            placemarks.append(crime_info)
+    placemarks = []
+    for i in crimes:
+        geo = geolocator.geocode(i.adress)
+        crime_info = {
+            "id": i.id,
+            "latitude": geo.latitude,
+            "longitude": geo.longitude,
+        }
+        placemarks.append(crime_info)
     placemarks_json = json.dumps(placemarks, ensure_ascii=False)
     return render_template(
         "map.html",
@@ -205,7 +196,6 @@ def add():
                 content=content,
                 adress=adress,
             )
-        print(1)
         db_sess.add(crime)
         db_sess.commit()
         return redirect("/crimes")
